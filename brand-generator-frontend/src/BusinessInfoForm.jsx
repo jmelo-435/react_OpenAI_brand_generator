@@ -51,7 +51,6 @@ function BussinessInfoForm ({ handleNext }) {
               {...params}
               label='Keywords'
               required={(()=>{return keywords.length ===0})()}
-
             />
           )}
         />
