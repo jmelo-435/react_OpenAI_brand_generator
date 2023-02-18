@@ -4,8 +4,11 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Autocomplete from '@mui/material/Autocomplete'
 import businessPersonality from './businessPersonality'
+import Chip from '@mui/material/Chip';
 import Fade from '@mui/material/Fade'
+import { useState } from 'react'
 function BussinessPersonalityForm ({ handleNext, handleBack }) {
+  const [personality,setPersonality]=useState([])
   return (
     <Fade in>
       <Paper
@@ -23,28 +26,26 @@ function BussinessPersonalityForm ({ handleNext, handleBack }) {
         }}
       >
         <Autocomplete
-          disablePortal
-          id='bussines-personality-1'
-          options={businessPersonality}
+          multiple
           sx={{ width: 300, margin: 2 }}
+          id='personality'
+          options={businessPersonality.map(option => option.label)}
+          freeSolo
+          onChange={(e)=>{setPersonality(e.target.value)}}
+          label={"Personality"}
+          renderTags={(value, getTagProps) =>
+            value.map((option, index) => (
+              <Chip
+                label={option}
+                {...getTagProps({ index })}
+              />
+            ))
+          }
           renderInput={params => (
             <TextField
               {...params}
-              label='Business Primary Attribute'
-              required
-            />
-          )}
-        />
-        <Autocomplete
-          disablePortal
-          id='bussines-Personality-2'
-          options={businessPersonality}
-          sx={{ width: 300, margin: 2 }}
-          renderInput={params => (
-            <TextField
-              {...params}
-              label='Business Secondary Attribute'
-              required
+              label='Keywords'
+              required={(()=>{return personality.length ===0})()}
             />
           )}
         />

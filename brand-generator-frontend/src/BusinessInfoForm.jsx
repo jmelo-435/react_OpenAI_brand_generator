@@ -29,6 +29,7 @@ function BussinessInfoForm ({ handleNext }) {
           label='Business Name'
           sx={{ width: 300, margin: 2 }}
           id='bussiness-name'
+          helperText="If you don't provide a name, we will create one for you."
         />
         <Autocomplete
           multiple
@@ -37,7 +38,7 @@ function BussinessInfoForm ({ handleNext }) {
           options={businessKeywords.map(option => option.label)}
           freeSolo
           onChange={(e)=>{setKeywords(e.target.value)}}
-          label={"Names"}
+          label={"Keywords"}
           renderTags={(value, getTagProps) =>
             value.map((option, index) => (
               <Chip
