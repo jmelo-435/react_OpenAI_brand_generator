@@ -5,12 +5,18 @@ import Stepper from '@mui/material/Stepper'
 import StepLabel from '@mui/material/StepLabel'
 import Step from '@mui/material/Step'
 import Conclusion from './Conclusion'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
+import business from './models/business'
 
 function App () {
   const steps = ['Bussines Branch', 'Bussines Personality', 'Result']
   const [activeStep, setActiveStep] = useState(0)
+  const [businessData, setBusinessData] = useState(business)
 
+  useEffect(()=>{
+      
+    console.log(JSON.stringify(businessData))
+}, [businessData])
   const handleNext = () => {
     setActiveStep(prevActiveStep => prevActiveStep + 1)
   }
@@ -37,11 +43,11 @@ function App () {
         })}
       </Stepper>
       {activeStep === 0 ? (
-        <BussinessInfoForm  handleNext={handleNext}/>
+        <BussinessInfoForm  handleNext={handleNext} business={businessData} setBusinessData={setBusinessData}/>
       ) : activeStep === 1 ? (
-        <BussinessPersonalityForm handleNext={handleNext} handleBack={handleBack}/>
+        <BussinessPersonalityForm handleNext={handleNext} handleBack={handleBack} business={businessData} setBusinessData={setBusinessData}/>
       ) : (
-        <Conclusion/>
+        <Conclusion brandData={businessData}/>
       )}
     </Box>
   )

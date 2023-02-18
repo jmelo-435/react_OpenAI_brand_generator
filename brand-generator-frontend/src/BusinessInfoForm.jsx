@@ -7,7 +7,7 @@ import businessKeywords from './businessKeywords'
 import Chip from '@mui/material/Chip';
 import Fade from '@mui/material/Fade'
 import { useState } from 'react'
-function BussinessInfoForm ({ handleNext }) {
+function BussinessInfoForm ({ handleNext,business,setBusinessData }) {
   const [keywords,setKeywords]=useState([])
   return (
     <Fade in>
@@ -22,13 +22,22 @@ function BussinessInfoForm ({ handleNext }) {
         }}
         component='form'
         onSubmit={() => {
+          const name = document.getElementById("business-name").value
+          const type = document.getElementById("business-type").value
+          const keys = keywords
+          let newBusiness= business
+          newBusiness.name = name
+          newBusiness.keywords= keys
+          newBusiness.type=type
+          setBusinessData((prevState)=>({...prevState,...newBusiness}))
+
           handleNext()
         }}
       >
         <TextField
           label='Business Name'
           sx={{ width: 300, margin: 2 }}
-          id='bussiness-name'
+          id='business-name'
           helperText="If you don't provide a name, we will create one for you."
         />
         <Autocomplete
@@ -37,7 +46,7 @@ function BussinessInfoForm ({ handleNext }) {
           id='keywords'
           options={businessKeywords.map(option => option.label)}
           freeSolo
-          onChange={(e)=>{setKeywords(e.target.value)}}
+          onChange={(event,newValue)=>{setKeywords(newValue)}}
           label={"Keywords"}
           renderTags={(value, getTagProps) =>
             value.map((option, index) => (
@@ -57,7 +66,7 @@ function BussinessInfoForm ({ handleNext }) {
         />
         <Autocomplete
           disablePortal
-          id='bussines-type'
+          id='business-type'
           options={businessTypes}
           sx={{ width: 300, margin: 2 }}
           renderInput={params => (
