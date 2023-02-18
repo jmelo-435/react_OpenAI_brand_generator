@@ -2,7 +2,6 @@ import LoadingButton from '@mui/lab/LoadingButton'
 import Paper from '@mui/material/Paper'
 import TextField from '@mui/material/TextField'
 import Autocomplete from '@mui/material/Autocomplete'
-import Grid from '@mui/material/Grid'
 import { useState } from 'react'
 
 function BussinessInfoForm () {
