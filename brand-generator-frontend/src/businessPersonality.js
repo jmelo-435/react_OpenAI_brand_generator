@@ -1,4 +1,4 @@
-businessPersonality = [{ label: 'Adaptable', id: '1' },
+const businessPersonality = [{ label: 'Adaptable', id: '1' },
     { label: 'Artistic', id: '2' },
     { label: 'Assertive', id: '3' },
     { label: 'Brave', id: '4' },
@@ -32,3 +32,5 @@ businessPersonality = [{ label: 'Adaptable', id: '1' },
     { label: 'Resourceful', id: '32' },
     { label: 'Sensitive', id: '33' },
     { label: 'Trustfull', id: '34' }]
+
+    export default businessPersonality
