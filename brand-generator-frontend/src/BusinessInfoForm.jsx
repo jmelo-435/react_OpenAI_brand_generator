@@ -4,8 +4,11 @@ import TextField from '@mui/material/TextField'
 import Autocomplete from '@mui/material/Autocomplete'
 import businessTypes from './businessTypes'
 import businessKeywords from './businessKeywords'
+import Chip from '@mui/material/Chip';
 import Fade from '@mui/material/Fade'
+import { useState } from 'react'
 function BussinessInfoForm ({ handleNext }) {
+  const [keywords,setKeywords]=useState([])
   return (
     <Fade in>
       <Paper
@@ -28,21 +31,28 @@ function BussinessInfoForm ({ handleNext }) {
           id='bussiness-name'
         />
         <Autocomplete
-          disablePortal
-          id='bussines-keyword-1'
-          options={businessKeywords}
+          multiple
           sx={{ width: 300, margin: 2 }}
+          id='keywords'
+          options={businessKeywords.map(option => option.label)}
+          freeSolo
+          onChange={(e)=>{setKeywords(e.target.value)}}
+          label={"Names"}
+          renderTags={(value, getTagProps) =>
+            value.map((option, index) => (
+              <Chip
+                label={option}
+                {...getTagProps({ index })}
+              />
+            ))
+          }
           renderInput={params => (
-            <TextField {...params} label='Business Keyword 1' required />
-          )}
-        />
-        <Autocomplete
-          disablePortal
-          id='bussines-keyword-2'
-          options={businessKeywords}
-          sx={{ width: 300, margin: 2 }}
-          renderInput={params => (
-            <TextField {...params} label='Business Keyword 2' required />
+            <TextField
+              {...params}
+              label='Keywords'
+              required={(()=>{return keywords.length ===0})()}
+
+            />
           )}
         />
         <Autocomplete
