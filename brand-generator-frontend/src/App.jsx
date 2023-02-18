@@ -4,10 +4,11 @@ import BussinessPersonalityForm from './BusinessPersonalityForm'
 import Stepper from '@mui/material/Stepper'
 import StepLabel from '@mui/material/StepLabel'
 import Step from '@mui/material/Step'
+import Conclusion from './Conclusion'
 import { useState } from 'react'
 
 function App () {
-  const steps = ['Bussines Branch', 'Bussines Personality', 'Create']
+  const steps = ['Bussines Branch', 'Bussines Personality', 'Result']
   const [activeStep, setActiveStep] = useState(0)
 
   const handleNext = () => {
@@ -40,7 +41,7 @@ function App () {
       ) : activeStep === 1 ? (
         <BussinessPersonalityForm handleNext={handleNext} handleBack={handleBack}/>
       ) : (
-        <></>
+        <Conclusion/>
       )}
     </Box>
   )
