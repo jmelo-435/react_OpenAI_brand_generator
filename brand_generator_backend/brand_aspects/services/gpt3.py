@@ -33,6 +33,7 @@ def _generate_brand_name(business_info):
             model="text-davinci-003",
             prompt=_generate_brand_name_prompt(business_info),
             temperature=0.7,
+            presence_penalty=1.5,
             max_tokens=400
         )
     return json.loads(response["choices"][0]["text"])
@@ -53,6 +54,7 @@ def _generate_brand_slogan(business_info,name):
             model="text-davinci-003",
             prompt=_generate_brand_slogan_prompt(business_info),
             temperature=0.7,
+            presence_penalty=1,
             max_tokens=400
         )
     return json.loads(response["choices"][0]["text"])
@@ -68,7 +70,7 @@ def _generate_brand_colors(business_info):
         business_type=business_info["type"]
         keywords = _separate_by_comas(business_info["keywords"])
         atributes = _separate_by_comas(business_info["atributes"])
-        return f"""Sugest a color scheme for a business that is a {business_type} related to  {keywords}.The color scheme must be  {atributes}.Return as a JSON string with colors hex.Example:{{"colors":["#fffff","#000000"]}}."""
+        return f"""Sugest a color scheme of 4 colors for a business that is a {business_type} related to  {keywords}.The color scheme must be  {atributes}.Return as a JSON string with colors hex.Example:{{"colors":["#fffff","#000000"]}}."""
     response = openai.Completion.create(
             model="text-davinci-003",
             prompt=_generate_brand_slogan_prompt(business_info),
