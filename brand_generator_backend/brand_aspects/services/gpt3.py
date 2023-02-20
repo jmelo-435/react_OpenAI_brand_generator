@@ -15,7 +15,8 @@ def generate_brand(business_info):
     
     slogan =_generate_brand_slogan(business_info,name)["slogan"]
     color_scheme=_generate_brand_colors(business_info)["colors"]
-    return {"name":name,"slogan":slogan,"achronym":acronym,"color_scheme":color_scheme}
+    font = _generate_brand_font(business_info)["font"]
+    return {"name":name,"slogan":slogan,"achronym":acronym,"color_scheme":color_scheme,"font":font}
 
 def _generate_brand_name(business_info):
     def _generate_brand_name_prompt(business_info):
@@ -60,7 +61,7 @@ def _generate_brand_slogan(business_info,name):
     return json.loads(response["choices"][0]["text"])
 
 def _generate_brand_colors(business_info):
-    def _generate_brand_slogan_prompt(business_info):
+    def _generate_brand_colors_prompt(business_info):
         def _separate_by_comas(list):
             separeted_string=""
             for word in list:
@@ -73,7 +74,26 @@ def _generate_brand_colors(business_info):
         return f"""Sugest a color scheme of 4 colors for a business that is a {business_type} related to  {keywords}.The color scheme must be  {atributes}.Return as a JSON string with colors hex.Example:{{"colors":["#fffff","#000000"]}}."""
     response = openai.Completion.create(
             model="text-davinci-003",
-            prompt=_generate_brand_slogan_prompt(business_info),
+            prompt=_generate_brand_colors_prompt(business_info),
+            temperature=0.7,
+            max_tokens=400
+        )
+    return json.loads(response["choices"][0]["text"])
+
+def _generate_brand_font(business_info):
+    def _generate_brand_font_prompt(business_info):
+        def _separate_by_comas(list):
+            separeted_string=""
+            for word in list:
+                separeted_string+=word+","
+            return separeted_string
+
+        keywords = _separate_by_comas(business_info["keywords"])
+        atributes = _separate_by_comas(business_info["atributes"])
+        return f"""Sugest a Google Font for the logo of a business related to  {keywords}.The font must be  {atributes}.Return as a JSON string with the font name.Example:{{"font":"Arial"}}."""
+    response = openai.Completion.create(
+            model="text-davinci-003",
+            prompt=_generate_brand_font_prompt(business_info),
             temperature=0.7,
             max_tokens=400
         )
