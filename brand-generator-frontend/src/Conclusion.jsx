@@ -1,25 +1,30 @@
 import Paper from '@mui/material/Paper'
-import Skeleton from '@mui/material/Skeleton'
-import Stack from '@mui/material/Stack'
-import { useState } from 'react'
 import Fade from '@mui/material/Fade'
 
-function LoadingPlaceholder () {
-  return (
-    <Stack spacing={2}>
-      {/* For variant="text", adjust the height via font-size */}
-      <Skeleton variant='text' sx={{ fontSize: '3rem', width: 400 }} />
-      {/* For other variants, adjust the size with `width` and `height` */}
-      <Skeleton variant='circular' width={200} height={200} />
-      <Skeleton variant='rectangular' width={400} height={40} />
-      <Skeleton variant='rounded' width={400} height={200} />
-    </Stack>
+function ErrorPlaceHolder (){
+  return(
+  <h1>We have a problem</h1>
+  )
+}
+
+function DataDisplay ({data}){
+  return(
+    <>
+    <h1>{data.name}-{data.acronym}</h1>
+    <h2>{data.slogan}</h2>
+    <br></br>
+    <h3>{data.description}</h3>
+    <br></br>
+    <h3>{data.font}</h3>
+
+    </>
+
   )
 }
 
 function Conclusion ({ brandData }) {
-  const [loading, setLoading] = useState(true)
 
+  
   return (
     <Fade in>
       <Paper
@@ -32,7 +37,7 @@ function Conclusion ({ brandData }) {
           alignItems: 'center'
         }}
       >
-        {loading ? <LoadingPlaceholder></LoadingPlaceholder> : <></>}
+        {!brandData ?<ErrorPlaceHolder/>:<DataDisplay data={brandData}/>}
       </Paper>
     </Fade>
   )

@@ -12,6 +12,8 @@ function App () {
   const steps = ['Bussines Branch', 'Bussines Personality', 'Result']
   const [activeStep, setActiveStep] = useState(0)
   const [businessData, setBusinessData] = useState(business)
+  const [brandData, setBrandData] = useState()
+
 
   useEffect(()=>{
       
@@ -45,9 +47,9 @@ function App () {
       {activeStep === 0 ? (
         <BussinessInfoForm  handleNext={handleNext} business={businessData} setBusinessData={setBusinessData}/>
       ) : activeStep === 1 ? (
-        <BussinessPersonalityForm handleNext={handleNext} handleBack={handleBack} business={businessData} setBusinessData={setBusinessData}/>
+        <BussinessPersonalityForm handleNext={handleNext} handleBack={handleBack} business={businessData} setBusinessData={setBusinessData} setBrandData={setBrandData}/>
       ) : (
-        <Conclusion brandData={businessData}/>
+        <Conclusion brandData={brandData}/>
       )}
     </Box>
   )

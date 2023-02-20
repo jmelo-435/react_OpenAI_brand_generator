@@ -6,10 +6,57 @@ import Autocomplete from '@mui/material/Autocomplete'
 import businessPersonality from './businessPersonality'
 import Chip from '@mui/material/Chip'
 import Fade from '@mui/material/Fade'
+import CircularProgress from '@mui/material/CircularProgress'
 import { useState } from 'react'
-function BussinessPersonalityForm ({ handleNext, handleBack,business,setBusinessData}) {
-  const [personality, setPersonality] = useState([])
+import { createBrand } from './repo/repo'
+function LoadingPlaceholder () {
   return (
+    <Fade in>
+      <Paper
+        sx={{
+          margin: 5,
+          padding: 5,
+          display: 'flex',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          height: 200,
+          width: 200,
+          alignItems: 'center'
+        }}
+      >
+        <CircularProgress />
+      </Paper>
+    </Fade>
+  )
+}
+function BussinessPersonalityForm ({
+  handleNext,
+  handleBack,
+  business,
+  setBusinessData,
+  setBrandData
+}) {
+  const [personality, setPersonality] = useState([])
+  const [loading, setLoading] = useState(false)
+  async function fetch (businessData) {
+    setLoading(true)
+    try{
+      const response = await createBrand(businessData)
+      console.log(response)
+      setBrandData(response)
+      setLoading(false)
+      handleNext()
+    }
+    catch{
+      setBrandData(false)
+      setLoading(false)
+      handleNext()
+    }
+    
+  }
+  return loading ? (
+    <LoadingPlaceholder />
+  ) : (
     <Fade in>
       <Paper
         sx={{
@@ -21,15 +68,16 @@ function BussinessPersonalityForm ({ handleNext, handleBack,business,setBusiness
           alignItems: 'center'
         }}
         component='form'
-        onSubmit={() => {
-          const description = document.getElementById('business-description').value
+        onSubmit={async () => {
+          const description = document.getElementById(
+            'business-description'
+          ).value
           const persona = personality
           let newBusiness = business
-          newBusiness.atributes=persona
-          newBusiness.description=description
-          setBusinessData(prevState => ({ ...prevState, ...newBusiness }))
-
-          handleNext()
+          newBusiness.atributes = persona
+          newBusiness.description = description
+          setBusinessData(newBusiness)
+          await fetch(newBusiness)
         }}
       >
         <Autocomplete
@@ -38,8 +86,12 @@ function BussinessPersonalityForm ({ handleNext, handleBack,business,setBusiness
           id='personality'
           options={businessPersonality.map(option => option.label)}
           freeSolo
-          getOptionDisabled={()=>{return personality.length >=4}}
-          onChange={(event,newValue)=>{setPersonality(newValue)}}
+          getOptionDisabled={() => {
+            return personality.length >= 4
+          }}
+          onChange={(event, newValue) => {
+            setPersonality(newValue)
+          }}
           label={'Personality'}
           renderTags={(value, getTagProps) =>
             value.map((option, index) => (
