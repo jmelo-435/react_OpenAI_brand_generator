@@ -69,6 +69,7 @@ function BussinessInfoForm ({ handleNext,business,setBusinessData }) {
           disablePortal
           id='business-type'
           options={businessTypes}
+          freeSolo
           sx={{ width: 300, margin: 2 }}
           renderInput={params => (
             <TextField {...params} label='Business Type' required />
