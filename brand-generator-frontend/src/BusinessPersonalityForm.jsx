@@ -38,6 +38,7 @@ function BussinessPersonalityForm ({ handleNext, handleBack,business,setBusiness
           id='personality'
           options={businessPersonality.map(option => option.label)}
           freeSolo
+          getOptionDisabled={()=>{return personality.length >=4}}
           onChange={(event,newValue)=>{setPersonality(newValue)}}
           label={'Personality'}
           renderTags={(value, getTagProps) =>
@@ -60,7 +61,9 @@ function BussinessPersonalityForm ({ handleNext, handleBack,business,setBusiness
           label='Short Description'
           sx={{ width: 300, margin: 2 }}
           multiline
+          inputProps={{ maxLength: 200 }}
           rows={4}
+          helperText="If you don't provide a description, we will create one for you."
         />
         <Box
           display='flex'

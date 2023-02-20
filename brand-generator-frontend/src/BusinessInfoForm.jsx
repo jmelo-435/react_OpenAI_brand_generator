@@ -47,6 +47,7 @@ function BussinessInfoForm ({ handleNext,business,setBusinessData }) {
           options={businessKeywords.map(option => option.label)}
           freeSolo
           onChange={(event,newValue)=>{setKeywords(newValue)}}
+          getOptionDisabled={()=>{return keywords.length >=4}}
           label={"Keywords"}
           renderTags={(value, getTagProps) =>
             value.map((option, index) => (
