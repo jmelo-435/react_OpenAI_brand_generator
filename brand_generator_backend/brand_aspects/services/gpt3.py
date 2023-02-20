@@ -5,6 +5,13 @@ import json
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
 def generate_brand(business_info):
+    try:
+        if business_info["description"] !="":
+            description=business_info["description"]
+        else:
+            description=_generate_brand_description(business_info)["description"]
+    except:
+        description=_generate_brand_description(business_info)["description"]
     if business_info["name"] !="":
         name=business_info["name"]
         acronym=_generate_brand_name(business_info)["acronym"]
@@ -16,7 +23,7 @@ def generate_brand(business_info):
     slogan =_generate_brand_slogan(business_info,name)["slogan"]
     color_scheme=_generate_brand_colors(business_info)["colors"]
     font = _generate_brand_font(business_info)["font"]
-    return {"name":name,"slogan":slogan,"achronym":acronym,"color_scheme":color_scheme,"font":font}
+    return {"name":name,"slogan":slogan,"achronym":acronym,"color_scheme":color_scheme, "description":description,"font":font}
 
 def _generate_brand_name(business_info):
     def _generate_brand_name_prompt(business_info):
@@ -36,6 +43,27 @@ def _generate_brand_name(business_info):
             temperature=0.7,
             presence_penalty=1.5,
             max_tokens=400
+        )
+    return json.loads(response["choices"][0]["text"])
+
+def _generate_brand_description(business_info):
+    def _generate_brand_description_prompt(business_info):
+        def _separate_by_comas(list):
+            separeted_string=""
+            for word in list:
+                separeted_string+=word+","
+            return separeted_string
+
+        business_type=business_info["type"]
+        keywords = _separate_by_comas(business_info["keywords"])
+        atributes = _separate_by_comas(business_info["atributes"])
+        return f"""Sugest a description of 20 t0 30 wordsfor a business that is a {business_type} related to  {keywords}. Return as a JSON string with description key.Example:{{"description":"the description"}}"""
+    response = openai.Completion.create(
+            model="text-davinci-003",
+            prompt=_generate_brand_description_prompt(business_info),
+            temperature=0.7,
+            presence_penalty=1.5,
+            max_tokens=1000
         )
     return json.loads(response["choices"][0]["text"])
 
