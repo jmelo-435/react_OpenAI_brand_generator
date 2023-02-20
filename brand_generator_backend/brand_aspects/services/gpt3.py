@@ -118,7 +118,7 @@ def _generate_brand_font(business_info):
 
         keywords = _separate_by_comas(business_info["keywords"])
         atributes = _separate_by_comas(business_info["atributes"])
-        return f"""Sugest a Google Font for the logo of a business related to  {keywords}.The font must be  {atributes}.Return as a JSON string with the font name.Example:{{"font":"Arial"}}."""
+        return f"""Sugest a Google Font,except Roboto, for the logo of a business related to  {keywords}.The font must be  {atributes}.Return as a JSON string with the font name.Example:{{"font":"Arial"}}."""
     response = openai.Completion.create(
             model="text-davinci-003",
             prompt=_generate_brand_font_prompt(business_info),
