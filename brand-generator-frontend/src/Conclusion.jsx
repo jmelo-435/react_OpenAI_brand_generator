@@ -49,6 +49,8 @@ function ErrorPlaceHolder ({ reset,setBrandData,business }) {
     loading?<LoadingPlaceholder/>:
     <>
     <h1>We have a problem</h1>
+    <br></br>
+    <h2>Our AI flew too close to the sun, please try again!</h2>
     <Box
         display='flex'
         justifyContent='space-between'
