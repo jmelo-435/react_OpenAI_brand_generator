@@ -7,7 +7,7 @@ import businessPersonality from './businessPersonality'
 import Chip from '@mui/material/Chip'
 import Fade from '@mui/material/Fade'
 import CircularProgress from '@mui/material/CircularProgress'
-import { useState } from 'react'
+import { useState} from 'react'
 import { createBrand } from './repo/repo'
 function LoadingPlaceholder () {
   return (

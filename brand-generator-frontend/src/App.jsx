@@ -5,7 +5,7 @@ import Stepper from '@mui/material/Stepper'
 import StepLabel from '@mui/material/StepLabel'
 import Step from '@mui/material/Step'
 import Conclusion from './Conclusion'
-import { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import business from './models/business'
 
 function App () {
@@ -13,17 +13,19 @@ function App () {
   const [activeStep, setActiveStep] = useState(0)
   const [businessData, setBusinessData] = useState(business)
   const [brandData, setBrandData] = useState()
+  const [retrying, setRetrying] = useState(false)
 
-
-  useEffect(()=>{
-      
+  useEffect(() => {
     console.log(JSON.stringify(businessData))
-}, [businessData])
+  }, [businessData])
   const handleNext = () => {
     setActiveStep(prevActiveStep => prevActiveStep + 1)
   }
   const handleBack = () => {
     setActiveStep(prevActiveStep => prevActiveStep - 1)
+  }
+  const handleReset = () => {
+    setActiveStep(0)
   }
   return (
     <Box
@@ -45,11 +47,29 @@ function App () {
         })}
       </Stepper>
       {activeStep === 0 ? (
-        <BussinessInfoForm  handleNext={handleNext} business={businessData} setBusinessData={setBusinessData}/>
+        <BussinessInfoForm
+          handleNext={handleNext}
+          business={businessData}
+          setBusinessData={setBusinessData}
+        />
       ) : activeStep === 1 ? (
-        <BussinessPersonalityForm handleNext={handleNext} handleBack={handleBack} business={businessData} setBusinessData={setBusinessData} setBrandData={setBrandData}/>
+        <BussinessPersonalityForm
+          handleNext={handleNext}
+          handleBack={handleBack}
+          business={businessData}
+          setBusinessData={setBusinessData}
+          setBrandData={setBrandData}
+          setRetrying={setRetrying}
+          retrying={retrying}
+        />
       ) : (
-        <Conclusion brandData={brandData}/>
+        <Conclusion
+          brandData={brandData}
+          reset={handleReset}
+          handleBack={handleBack}
+          setRetrying={setRetrying}
+          business={businessData}
+        />
       )}
     </Box>
   )
