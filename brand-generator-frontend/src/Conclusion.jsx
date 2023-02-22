@@ -19,8 +19,8 @@ function LoadingPlaceholder () {
           display: 'flex',
           justifyContent: 'center',
           flexDirection: 'column',
-          height: 200,
-          width: 200,
+          height: '20%',
+          width: '20%',
           alignItems: 'center'
         }}
       >
@@ -47,10 +47,26 @@ function ErrorPlaceHolder ({ reset,setBrandData,business }) {
   }
   return( 
     loading?<LoadingPlaceholder/>:
-    <>
-    <h1>We have a problem</h1>
+    <Box
+    display='flex'
+        justifyContent='center'
+        alignItems='center'
+        flexDirection='column'
+    >
+    <h1
+    style={{
+      color: '#1976d2',
+      marginBottom: '0px',
+      fontSize:'1rem',
+    }}
+    >We have a problem</h1>
     <br></br>
-    <h2>Our AI flew too close to the sun, please try again!</h2>
+    <h3
+    style={{
+      color: 'grey',
+      marginTop: '0px'
+    }}
+    >Please try again!</h3>
     <Box
         display='flex'
         justifyContent='space-between'
@@ -75,7 +91,7 @@ function ErrorPlaceHolder ({ reset,setBrandData,business }) {
           Retry
         </Button>
       </Box>
-    </>
+    </Box>
   
   )
 }
@@ -91,12 +107,12 @@ function ColorPallet ({ colorScheme }) {
   return (
     <Paper
       sx={{
-        margin: '10px',
+        margin: '5%',
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'space-around',
-        width: '86%',
-        height: '50px'
+        width: '100%',
+        height: '5vh'
       }}
     >
       <Tooltip title={colorScheme[0]}>
@@ -155,7 +171,7 @@ function ColorPallet ({ colorScheme }) {
         open={open}
         autoHideDuration={3000}
         onClose={handleClose}
-        message='Copied to clipboard'
+        message='Color hex copied to clipboard'
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       />
     </Paper>
@@ -193,13 +209,14 @@ function DataDisplay ({ data, reset,setBrandData,business }) {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          width: '80%'
+          width: '95%'
         }}
       >
         <h1
           style={{
             color: data.colorScheme[1],
             marginBottom: '0px',
+            fontSize:'1rem',
             fontFamily: data.font
           }}
         >
@@ -208,7 +225,8 @@ function DataDisplay ({ data, reset,setBrandData,business }) {
         <h3
           style={{
             color: data.colorScheme[0],
-            fontSize: '15px',
+            fontSize:'0.7rem',
+            margin: '0px',
             marginTop: '2px'
           }}
         >
@@ -220,11 +238,11 @@ function DataDisplay ({ data, reset,setBrandData,business }) {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          width: '80%',
-          padding: 2
+          padding: "5%",
+          marginTop:"5%"
         }}
       >
-        <h3 style={{ textAlign: 'left' }}>{data.description}</h3>
+        <h4 style={{ textAlign: 'left' }}>{data.description}</h4>
       </Paper>
       <ColorPallet colorScheme={data.colorScheme} />
       <Box
@@ -232,7 +250,7 @@ function DataDisplay ({ data, reset,setBrandData,business }) {
         justifyContent='space-between'
         alignItems='center'
         width='100%'
-        margin={'2rem'}
+        margin={'5%'}
         flexDirection='row'
       >
         <Button
@@ -268,7 +286,9 @@ function Conclusion ({ brandData, reset, setRetrying, handleBack,business }) {
           justifyContent: 'center',
           flexDirection: 'column',
           alignItems: 'center',
-          width: '40%'
+          width: {xs:'95%',md:'500px'}
+
+          
         }}
       >
         {!brandDataState ? (

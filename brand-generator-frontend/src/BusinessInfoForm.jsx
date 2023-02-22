@@ -13,8 +13,8 @@ function BussinessInfoForm ({ handleNext,business,setBusinessData }) {
     <Fade in>
       <Paper
         sx={{
-          margin: 5,
-          padding: 5,
+          marginTop:"5%",
+          padding: '5%',
           display: 'flex',
           justifyContent: 'center',
           flexDirection: 'column',
@@ -36,13 +36,13 @@ function BussinessInfoForm ({ handleNext,business,setBusinessData }) {
       >
         <TextField
           label='Business Name'
-          sx={{ width: 300, margin: 2 }}
+          sx={{ width: "90%", margin: '5%' }}
           id='business-name'
           helperText="If you don't provide a name, we will create one for you."
         />
         <Autocomplete
           multiple
-          sx={{ width: 300, margin: 2 }}
+          sx={{ width: "90%", margin:'5%' }}
           id='keywords'
           options={businessKeywords.map(option => option.label)}
           freeSolo
@@ -70,14 +70,14 @@ function BussinessInfoForm ({ handleNext,business,setBusinessData }) {
           id='business-type'
           options={businessTypes}
           freeSolo
-          sx={{ width: 300, margin: 2 }}
+          sx={{ width: "90%", margin: '5%' }}
           renderInput={params => (
             <TextField {...params} label='Business Type' required />
           )}
         />
 
         <>
-          <Button type='submit' variant='contained'>
+          <Button type='submit' variant='contained'sx={{ width: "90%", margin:'5%' }}>
             Next
           </Button>
         </>

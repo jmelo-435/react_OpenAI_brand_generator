@@ -19,8 +19,8 @@ function LoadingPlaceholder () {
           display: 'flex',
           justifyContent: 'center',
           flexDirection: 'column',
-          height: 200,
-          width: 200,
+          height: '20%',
+          width: '20%',
           alignItems: 'center'
         }}
       >
@@ -60,8 +60,8 @@ function BussinessPersonalityForm ({
     <Fade in>
       <Paper
         sx={{
-          margin: 5,
-          padding: 5,
+          marginTop:"5%",
+          padding: '1%',
           display: 'flex',
           justifyContent: 'center',
           flexDirection: 'column',
@@ -82,7 +82,7 @@ function BussinessPersonalityForm ({
       >
         <Autocomplete
           multiple
-          sx={{ width: 300, margin: 2 }}
+          sx={{ width: "90%", margin:'5%' }}
           id='personality'
           options={businessPersonality.map(option => option.label)}
           freeSolo
@@ -111,8 +111,8 @@ function BussinessPersonalityForm ({
         <TextField
           id='business-description'
           label='Short Description'
-          sx={{ width: 300, margin: 2 }}
           multiline
+          sx={{ width: "90%", margin:'5%' }}
           inputProps={{ maxLength: 200 }}
           rows={4}
           helperText="If you don't provide a description, we will create one for you."
@@ -128,10 +128,12 @@ function BussinessPersonalityForm ({
             onClick={() => {
               handleBack()
             }}
+          sx={{margin:'5%' }}
+
           >
             Back
           </Button>
-          <Button type='submit' variant='contained'>
+          <Button type='submit' variant='contained'sx={{margin:'5%' }} >
             Submit
           </Button>
         </Box>

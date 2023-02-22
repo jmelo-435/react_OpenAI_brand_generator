@@ -33,9 +33,12 @@ function App () {
       justifyContent='center'
       alignItems='center'
       flexDirection='column'
-      minHeight='100vh'
+      minHeight='80%'
+      maxWidth='80%'
     >
-      <Stepper activeStep={activeStep}>
+      <Stepper activeStep={activeStep} sx={{
+        fontSize:{xs:'0.7rem'}
+      }}>
         {steps.map(label => {
           const stepProps = {}
           const labelProps = {}
