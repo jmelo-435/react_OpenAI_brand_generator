@@ -14,7 +14,7 @@ def generate_brand(business_info):
         description=_generate_brand_description(business_info)["description"]
     if business_info["name"] !="":
         name=business_info["name"]
-        acronym=_generate_brand_name(business_info)["acronym"]
+        acronym=_generate_brand_acronym(business_info)["acronym"]
     else:
         generated = _generate_brand_name(business_info)
         name = generated["name"]
@@ -46,6 +46,20 @@ def _generate_brand_name(business_info):
         )
     return json.loads(response["choices"][0]["text"])
 
+def _generate_brand_acronym(business_info):
+    def _generate_brand_name_prompt(business_info):
+
+        name=business_info['name']
+        return f"""Sugest an acronym for a business that is a called {name}. Return as a JSON String.Example:{{"acronym":"LTS"}}"""
+    response = openai.Completion.create(
+            model="text-davinci-003",
+            prompt=_generate_brand_name_prompt(business_info),
+            temperature=0.7,
+            presence_penalty=1.5,
+            max_tokens=400
+        )
+    return json.loads(response["choices"][0]["text"])
+
 def _generate_brand_description(business_info):
     def _generate_brand_description_prompt(business_info):
         def _separate_by_comas(list):
@@ -57,7 +71,7 @@ def _generate_brand_description(business_info):
         business_type=business_info["type"]
         keywords = _separate_by_comas(business_info["keywords"])
         atributes = _separate_by_comas(business_info["atributes"])
-        return f"""Sugest a description of 20 t0 30 wordsfor a business that is a {business_type} related to  {keywords}. Return as a JSON string with description key.Example:{{"description":"the description"}}"""
+        return f"""Sugest a description of 20 to 30 wordsfor a business that is a {business_type} related to  {keywords}. Return as a JSON string with description key.Example:{{"description":"the description"}}"""
     response = openai.Completion.create(
             model="text-davinci-003",
             prompt=_generate_brand_description_prompt(business_info),
