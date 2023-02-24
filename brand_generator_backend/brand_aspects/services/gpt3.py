@@ -35,7 +35,7 @@ def _generate_brand_name_and_description(business_info):
         business_type=business_info["type"]
         keywords = _separate_by_comas(business_info["keywords"])
         atributes = _separate_by_comas(business_info["atributes"])
-        return f"""Sugest a name, an acronym, a slogan and a description with 20 to 30 words for a business that is a {business_type} related to  {keywords}.They must be  {atributes}. Return as a JSON string. Ex:{{"name":"Busines Generator","slogan":"Get new gen with business generator","description":""}}"""
+        return f"""Sugest a name, an acronym, a slogan and a description with 20 to 30 words for a business that is a {business_type} related to  {keywords}.They must be  {atributes}. Return as a JSON string. Ex:{{"name":"Busines Generator","slogan":"","description":""}}"""
     response = openai.Completion.create(
             model="text-davinci-003",
             prompt=_generate_brand_name_prompt(business_info),
@@ -56,7 +56,7 @@ def _generate_brand_name(business_info):
         business_type=business_info["type"]
         keywords = _separate_by_comas(business_info["keywords"])
         atributes = _separate_by_comas(business_info["atributes"])
-        return f"""Sugest a name, an acronym and a slogan for a business that is a {business_type} related to  {keywords}.They must be  {atributes}. Return as a JSON string. Ex:{{"name":"Busines Generator","slogan":"Get new gen with business generator","acronym":"BG"}}"""
+        return f"""Sugest a name, an acronym and a slogan for a business that is a {business_type} related to  {keywords}.They must be  {atributes}. Return as a JSON string. Ex:{{"name":"Busines Generator","slogan":"","acronym":"BG"}}"""
     response = openai.Completion.create(
             model="text-davinci-003",
             prompt=_generate_brand_name_prompt(business_info),
@@ -79,7 +79,7 @@ def _generate_brand_description(business_info):
         keywords = _separate_by_comas(business_info["keywords"])
         atributes = _separate_by_comas(business_info["atributes"])
     
-        return f"""Create a description with 20 to 30 words, an acronym and a slogan for a {business_type} called {name} related to  {keywords}.They must be  {atributes}. Return as a JSON string. Ex:{{"description":"","slogan":"Get new gen with business generator","acronym":"BG"}}"""
+        return f"""Create a description with 20 to 30 words, an acronym and a slogan for a {business_type} called {name} related to  {keywords}.They must be  {atributes}. Return as a JSON string. Ex:{{"description":"","slogan":"","acronym":"BG"}}"""
     response = openai.Completion.create(
             model="text-davinci-003",
             prompt=_generate_brand_name_prompt(business_info),
@@ -102,7 +102,7 @@ def _generate_brand_slogan(business_info):
         keywords = _separate_by_comas(business_info["keywords"])
         atributes = _separate_by_comas(business_info["atributes"])
     
-        return f"""Create an acronym and a slogan for a {business_type} called {name} related to  {keywords}.They must be  {atributes}. Return as a JSON string. Ex:{{"slogan":"Get new gen with business generator","acronym":"BG"}}"""
+        return f"""Create an acronym and a slogan for a {business_type} called {name} related to  {keywords}.They must be  {atributes}. Return as a JSON string. Ex:{{"slogan":"","acronym":"BG"}}"""
     response = openai.Completion.create(
             model="text-davinci-003",
             prompt=_generate_brand_name_prompt(business_info),
