@@ -1,8 +1,16 @@
 import Paper from '@mui/material/Paper'
 import { Box } from '@mui/system'
+import About from './About'
+import { useState } from 'react'
 import App from './App'
+import { Chip } from "@mui/material";
+import InfoIcon from '@mui/icons-material/Info';
+import HomeIcon from '@mui/icons-material/Home';
+
+
 
 function MainContainer () {
+  const [content,setContent]=useState(false)
   return (
     <>
     <Box
@@ -41,14 +49,39 @@ function MainContainer () {
       <Paper
         sx={{
             margin: '1%',
-            padding: '5%',
+            padding: '2%',
             display: 'flex',
             justifyContent: 'center',
             flexDirection: 'column',
             alignItems: 'center'
         }}
         >
-        <App />
+
+        {content?<App />:<About/>}
+        {
+          content?<Chip
+          label={"About"}
+          icon={<InfoIcon/>}
+          color="primary"
+          clickable
+          onClick={()=>{setContent(false)}}
+          sx={{
+            marginTop:"10%",
+            alignSelf:"start"
+            
+          }}
+          ></Chip>:<Chip
+          label={"Back"}
+          icon={<HomeIcon/>}
+          color="primary"
+          clickable
+          onClick={()=>{setContent(true)}}
+          sx={{
+            marginTop:"10%",
+            alignSelf:"start"
+          }}
+          ></Chip>
+        }
       </Paper>
     </Box>
     </>
