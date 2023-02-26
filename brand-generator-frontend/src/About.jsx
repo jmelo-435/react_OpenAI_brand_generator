@@ -19,6 +19,7 @@ function About () {
         alignItems='center'
         flexDirection='column'
         minHeight='80%'
+        maxWidth={'400px'}
       >
         <Card
           sx={{
@@ -26,10 +27,10 @@ function About () {
             minWidth: '90%'
           }}
         >
-          <Stack direction='row' spacing={2} width={'90%'}>
+          <Stack direction='row' spacing={2} width={'90%'} justifyContent={'space-between'}>
             <Avatar
               src='https://lh3.googleusercontent.com/a/AGNmyxaoCDzPFvUi_CCphXfzzw87aMZF8dsUvQHn8Okccw=s83-c-mo'
-              sx={{ width: 70, height: 70, margin: '5%' }}
+              sx={{ width: 70, height: 70, margin: '5%', alignSelf:'center'}}
             />
             <Stack direction={'column'}>
               <Typography
