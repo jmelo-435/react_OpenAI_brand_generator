@@ -2,12 +2,15 @@ import Paper from '@mui/material/Paper'
 import Fade from '@mui/material/Fade'
 import Button from '@mui/material/Button'
 import { Box } from '@mui/system'
+import Switch from '@mui/material/Switch'
 import GoogleFontLoader from 'react-google-font-loader'
 import Tooltip from '@mui/material/Tooltip'
 import CircularProgress from '@mui/material/CircularProgress'
 import Snackbar from '@mui/material/Snackbar'
+import Typography from '@mui/material/Typography'
 import { createBrand } from './repo/repo'
 import { useState } from 'react'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 function LoadingPlaceholder () {
   return (
@@ -30,44 +33,48 @@ function LoadingPlaceholder () {
   )
 }
 
-function ErrorPlaceHolder ({ reset,setBrandData,business }) {
+function ErrorPlaceHolder ({ reset, setBrandData, business }) {
   const [loading, setLoading] = useState(false)
   async function retry () {
     setLoading(true)
-    try{
+    try {
       const response = await createBrand(business)
       console.log(response)
       setBrandData(response)
       setLoading(false)
-    }
-    catch{
+    } catch {
       setBrandData(false)
       setLoading(false)
     }
   }
-  return( 
-    loading?<LoadingPlaceholder/>:
+  return loading ? (
+    <LoadingPlaceholder />
+  ) : (
     <Box
-    display='flex'
-        justifyContent='center'
-        alignItems='center'
-        flexDirection='column'
+      display='flex'
+      justifyContent='center'
+      alignItems='center'
+      flexDirection='column'
     >
-    <h1
-    style={{
-      color: '#1976d2',
-      marginBottom: '0px',
-      fontSize:'1rem',
-    }}
-    >We have a problem</h1>
-    <br></br>
-    <h3
-    style={{
-      color: 'grey',
-      marginTop: '0px'
-    }}
-    >Please try again!</h3>
-    <Box
+      <h1
+        style={{
+          color: '#1976d2',
+          marginBottom: '0px',
+          fontSize: '1rem'
+        }}
+      >
+        We have a problem
+      </h1>
+      <br></br>
+      <h3
+        style={{
+          color: 'grey',
+          marginTop: '0px'
+        }}
+      >
+        Please try again!
+      </h3>
+      <Box
         display='flex'
         justifyContent='space-between'
         alignItems='center'
@@ -92,7 +99,6 @@ function ErrorPlaceHolder ({ reset,setBrandData,business }) {
         </Button>
       </Box>
     </Box>
-  
   )
 }
 
@@ -178,23 +184,23 @@ function ColorPallet ({ colorScheme }) {
   )
 }
 
-function DataDisplay ({ data, reset,setBrandData,business }) {
+function DataDisplay ({ data, reset, setBrandData, business, setDark, dark }) {
   const [loading, setLoading] = useState(false)
   async function retry () {
     setLoading(true)
-    try{
+    try {
       const response = await createBrand(business)
       console.log(response)
       setBrandData(response)
       setLoading(false)
-    }
-    catch{
+    } catch {
       setBrandData(false)
       setLoading(false)
     }
   }
-  return (
-    loading ? (<LoadingPlaceholder/>):(
+  return loading ? (
+    <LoadingPlaceholder />
+  ) : (
     <>
       <GoogleFontLoader
         fonts={[
@@ -212,11 +218,28 @@ function DataDisplay ({ data, reset,setBrandData,business }) {
           width: '95%'
         }}
       >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'right',
+            width: '100%'
+          }}
+        >
+          <Switch
+            label='Dark Mode'
+            checked={dark}
+            onChange={e => {
+              setDark(e.target.checked)
+            }}
+          />
+          <Typography>Dark</Typography>
+        </Box>
         <h1
           style={{
             color: data.colorScheme[1],
             marginBottom: '0px',
-            fontSize:'1rem',
+            fontSize: '1rem',
             fontFamily: data.font
           }}
         >
@@ -225,7 +248,7 @@ function DataDisplay ({ data, reset,setBrandData,business }) {
         <h3
           style={{
             color: data.colorScheme[0],
-            fontSize:'0.7rem',
+            fontSize: '0.7rem',
             margin: '0px',
             marginTop: '2px'
           }}
@@ -238,8 +261,8 @@ function DataDisplay ({ data, reset,setBrandData,business }) {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          padding: "5%",
-          marginTop:"5%"
+          padding: '5%',
+          marginTop: '5%'
         }}
       >
         <h4 style={{ textAlign: 'left' }}>{data.description}</h4>
@@ -270,42 +293,47 @@ function DataDisplay ({ data, reset,setBrandData,business }) {
         </Button>
       </Box>
     </>
-    )
   )
 }
 
-function Conclusion ({ brandData, reset, setRetrying, handleBack,business }) {
-  const [brandDataState,setBrandDataState]=useState(brandData)
+function Conclusion ({ brandData, reset, business }) {
+  const [brandDataState, setBrandDataState] = useState(brandData)
+  const [dark, setDark] = useState(false)
+  const darkTheme = createTheme({ palette: { mode: 'dark' } })
+  const lightTheme = createTheme({ palette: { mode: 'light' } })
   return (
     <Fade in>
-      <Paper
-        sx={{
-          margin: 5,
-          padding: 5,
-          display: 'flex',
-          justifyContent: 'center',
-          flexDirection: 'column',
-          alignItems: 'center',
-          width: {xs:'95%',md:'500px'}
-
-          
-        }}
-      >
-        {!brandDataState ? (
-          <ErrorPlaceHolder
-            data={brandDataState}
-            reset={reset}
-            setBrandData={setBrandDataState}
-            business={business} />
-        ) : (
-          <DataDisplay
-            data={brandDataState}
-            reset={reset}
-            setBrandData={setBrandDataState}
-            business={business}
-          />
-        )}
-      </Paper>
+      <ThemeProvider theme={dark?darkTheme:lightTheme}>
+        <Paper
+          sx={{
+            margin: 5,
+            padding: 5,
+            display: 'flex',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            alignItems: 'center',
+            width: { xs: '95%', md: '500px' }
+          }}
+        >
+          {!brandDataState ? (
+            <ErrorPlaceHolder
+              data={brandDataState}
+              reset={reset}
+              setBrandData={setBrandDataState}
+              business={business}
+            />
+          ) : (
+            <DataDisplay
+              data={brandDataState}
+              reset={reset}
+              setBrandData={setBrandDataState}
+              business={business}
+              setDark={setDark}
+              dark={dark}
+            />
+          )}
+        </Paper>
+      </ThemeProvider>
     </Fade>
   )
 }
