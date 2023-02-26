@@ -302,8 +302,8 @@ function Conclusion ({ brandData, reset, business }) {
   const darkTheme = createTheme({ palette: { mode: 'dark' } })
   const lightTheme = createTheme({ palette: { mode: 'light' } })
   return (
-    <Fade in>
       <ThemeProvider theme={dark?darkTheme:lightTheme}>
+    <Fade in>
         <Paper
           sx={{
             margin: 5,
@@ -333,8 +333,8 @@ function Conclusion ({ brandData, reset, business }) {
             />
           )}
         </Paper>
-      </ThemeProvider>
     </Fade>
+      </ThemeProvider>
   )
 }
 export default Conclusion
