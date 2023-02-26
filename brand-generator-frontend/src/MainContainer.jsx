@@ -10,7 +10,7 @@ import HomeIcon from '@mui/icons-material/Home';
 
 
 function MainContainer () {
-  const [content,setContent]=useState(false)
+  const [content,setContent]=useState(true)
   return (
     <>
     <Box
