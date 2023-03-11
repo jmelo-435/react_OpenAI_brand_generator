@@ -97,13 +97,13 @@ Project Link: [Brand Generator](https://brand-generator.netlify.app/)
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
 
 * [Choose an Open Source License](https://choosealicense.com)
 * [Img Shields](https://shields.io)
 * [React Icons](https://react-icons.github.io/react-icons/search)
 * [Material UI](https://mui.com/material-ui/material-icons/)
 * [Django Rest Framework](https://www.django-rest-framework.org/)
+* [Best README Template](https://github.com/othneildrew/Best-README-Template)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
